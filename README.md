@@ -1,1 +1,1 @@
-This repository content is made of exercise on MySQL during my presence at the CodeUp program
+This repository content is made of exercises on MySQL during my participation in the CodeUp program.
