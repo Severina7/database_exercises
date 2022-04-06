@@ -1,0 +1,1 @@
+CREATE TEMPORARY TABLE my_letters (n char NOT NULL);
