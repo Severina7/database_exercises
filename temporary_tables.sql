@@ -1,35 +1,24 @@
-# Example with letters
 USE jemison_1741;
-DROP TABLE if exists my_letters;
-CREATE TEMPORARY TABLE my_letters (n varchar(40) NOT NULL);
-INSERT INTO my_letters(n) VALUES ('A'), ('B'), ('C'), ('D'), ('E'), ('F'), ('G');
-SELECT * FROM my_letters;
-DROP TABLE if exists my_letters;
-
-# Example with numbers
-USE jemison_1741;
-CREATE TEMPORARY TABLE my_numbers (n INT UNSIGNED NOT NULL);
-INSERT INTO my_numbers(n) VALUES (1), (2), (3), (4), (5), (6), (7);
-SELECT * FROM my_numbers;
-DROP TABLE if exists my_numbers;
-
-# 1. Using the example from the lesson, create a temporary table called employees_with_departments
-# that contains first_name, last_name, and dept_name
-# for employees currently with that department.
-
-USE jemison_1741;
-DROP TABLE if exists employees_with_departments;
-CREATE TEMPORARY TABLE employees_with_departments (N INT UNSIGNED NOT NULL, first_name varchar(20), last_name varchar(20), dept_name varchar(20));
-INSERT INTO employees_with_departments(N) VALUES (1), (2), (3), (4), (5);
-SELECT * FROM employees_with_departments;
+SHOW CREATE DATABASE jemison_1741;
+CREATE TEMPORARY TABLE employees_with_departments AS
+SELECT first_name, last_name, dept_name
+FROM employees.employees
+JOIN employees.dept_emp USING(emp_no)
+JOIN employees.departments USING(dept_no)
+LIMIT 100;
 
 # a. Add a column named full_name to this table.
 # It should be a VARCHAR whose length is the sum of the lengths of the first name and last name columns
-ALTER TABLE employees_with_departments ADD full_name VARCHAR(40);
-ALTER TABLE employees_with_departments DROP COLUMN email;
+SELECT * FROM employees_with_departments;
+DESCRIBE table employees_with_departments;
+SHOW CREATE TABLE employees_with_departments;
+/* 'CREATE TEMPORARY TABLE `employees_with_departments` (
+  `first_name` varchar(14) CHARACTER SET latin1 NOT NULL,
+  `last_name` varchar(16) CHARACTER SET latin1 NOT NULL,
+  `dept_name` varchar(40) CHARACTER SET latin1 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci' */
+ALTER TABLE employees_with_departments ADD COLUMN full_name VARCHAR(30);
 SELECT * FROM employees_with_departments;
 
 # b. Update the table so that full name column contains the correct data
-
-USE jemison_1741;
-SELECT first_name, last_name, dept_name FROM jemison_1741 JOIN departments USING(dept_name) JOIN dept_emp USING(dept_no) JOIN employees USING(emp_no);
+UPDATE employees_with_departments SET full_name = CONCAT(first_name, ' ', last_name);
