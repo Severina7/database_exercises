@@ -13,7 +13,7 @@ DESCRIBE departments;
 # What is the relationship between the employees and the departments tables? It is a one to many (from departments to employees) relationship because MySQL connects the elements of tables to each others in an almost infinite entanglement of links
 # Show the SQL that created the dept_manager table.
 SHOW CREATE TABLE dept_manager;
-'CREATE TABLE `dept_manager` (
+/*'CREATE TABLE `dept_manager` (
   `emp_no` int NOT NULL,
   `dept_no` char(4) NOT NULL,
   `from_date` date NOT NULL,
@@ -22,4 +22,4 @@ SHOW CREATE TABLE dept_manager;
   KEY `dept_no` (`dept_no`),
   CONSTRAINT `dept_manager_ibfk_1` FOREIGN KEY (`emp_no`) REFERENCES `employees` (`emp_no`) ON DELETE CASCADE ON UPDATE RESTRICT,
   CONSTRAINT `dept_manager_ibfk_2` FOREIGN KEY (`dept_no`) REFERENCES `departments` (`dept_no`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=latin1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1'*/
