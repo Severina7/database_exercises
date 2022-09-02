@@ -13,6 +13,10 @@ USE employees;
 SHOW TABLES FROM employees;
 SHOW tables;
 SHOW CREATE table dept_manager;
+USE albums_db;
+SHOW tables;
+SELECT COUNT(*) FROM albums;
 
-
-
+SELECT * FROM albums;
+SELECT COUNT(DISTINCT (artist)) FROM albums;
+SHOW CREATE table albums;
