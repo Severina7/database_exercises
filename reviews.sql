@@ -20,3 +20,4 @@ SELECT COUNT(*) FROM albums;
 SELECT * FROM albums;
 SELECT COUNT(DISTINCT (artist)) FROM albums;
 SHOW CREATE table albums;
+SELEct MAX(release_date) FROM albums;
