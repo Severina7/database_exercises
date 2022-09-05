@@ -38,3 +38,12 @@ SELECT first_name, last_name FROM employees WHERE first_name IN ('Irena', 'Vidya
 SELECT first_name, last_name FROM employees WHERE first_name IN ('Irena') OR first_name IN ('Vidya') OR first_name IN ('Maya');
 SELECT gender, first_name, last_name FROM employees WHERE (first_name = 'Irena' OR first_name = 'Vidya' OR first_name = 'Maya') AND gender = 'M';
 SELECT first_name, last_name FROM employees WHERE last_name LIKE 'E%';
+SELECT first_name, last_name FROM employees WHERE last_name LIKE 'E%' OR last_name LIKE '%E';
+SELECT COUNT(*) FROM employees WHERE last_name LIKE '%E' AND last_name NOT LIKE 'E%';
+SHOW columns FROM employees;
+USE epmloyees;
+SELECT hire_date, first_name, last_name FROM employees WHERE hire_date LIKE '199%';
+SELECT COUNT(*) FROM employees WHERE hire_date LIKE '199%';
+SELECT * FROM employees LIMIT 10;
+SELECT birth_date, first_name, last_name FROM employees WHERE birth_date LIKE '%12-24';
+SELECT * FROM employees WHERE birth_date LIKE '%12-24' AND hire_date LIKE '199%';
