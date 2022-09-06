@@ -47,3 +47,5 @@ SELECT COUNT(*) FROM employees WHERE hire_date LIKE '199%';
 SELECT * FROM employees LIMIT 10;
 SELECT birth_date, first_name, last_name FROM employees WHERE birth_date LIKE '%12-24';
 SELECT * FROM employees WHERE birth_date LIKE '%12-24' AND hire_date LIKE '199%';
+SELECT first_name, last_name FROM employees WHERE last_name LIKE '%q%';
+SELECT COUNT(*) FROM employees WHERE last_name LIKE '%q%' AND last_name NOT LIKE '%qu%';
