@@ -15,7 +15,17 @@ SELECT COUNT(last_name) FROM employees WHERE last_name LIKE '%q%' AND last_name 
 SELECT gender, first_name, COUNT(gender) FROM employees WHERE first_name IN ('Irena' , 'Vidya', 'Maya') ORDER BY gender, first_name;
 # 8 Using your query that generates a username for all of the employees, generate a count employees for each unique username.
 #   Are there any duplicate usernames? BONUS: How many duplicate usernames are there?
-SELECT CONCAT (LOWER(SUBSTR(first_name, 1, 1)), LOWER(SUBSTR(last_name, 1, 4)), '_', SUBSTR(birth_date, 6, 2), SUBSTR(birth_date, 3, 2)) as user_name, COUNT(*) AS count_of_users FROM employees GROUP BY user_name HAVING count_of_users > 1;
+SELECT 
+    CONCAT(LOWER(SUBSTR(first_name, 1, 1)),
+            LOWER(SUBSTR(last_name, 1, 4)),
+            '_',
+            SUBSTR(birth_date, 6, 2),
+            SUBSTR(birth_date, 3, 2)) AS user_name,
+    COUNT(*) AS count_of_users
+FROM
+    employees
+GROUP BY user_name
+HAVING count_of_users > 1;
 # Yes, there are duplicates, and there is 300024 - 285872 = 14152 duplicates
 
 # 9 More practice with aggregate functions:
