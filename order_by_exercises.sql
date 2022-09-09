@@ -60,6 +60,7 @@ WHERE
     hire_date LIKE '199_-__-__'
         AND birth_date LIKE '____-12-24'
 ORDER BY birth_date ASC , hire_date DESC;
+
 # Number of employees found 381 (7a)
 # The name of the oldest employee hired last Samphel Casperson (7b)
 # The name of the youngest employee hired first Yinlin Kamfer (7c)
