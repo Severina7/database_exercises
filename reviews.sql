@@ -55,3 +55,36 @@ SELECT first_name, last_name FROM employees WHERE first_name IN ('Irena', 'Vidya
 SELECT first_name, last_name FROM employees WHERE first_name IN ('Irena', 'Vidya', 'Maya') ORDER BY first_name, last_name;
 SELECT first_name, last_name FROM employees WHERE first_name IN ('Irena', 'Vidya', 'Maya') ORDER BY first_name DESC, last_name DESC;
 SELECT emp_no, first_name, last_name FROM employees WHERE last_name LIKE 'E%e' ORDER BY emp_no;
+SELECT hire_date, birth_date, first_name, last_name FROM employees WHERE last_name LIKE 'E%e' ORDER BY birth_date;
+SELECT birth_date, hire_date, first_name, last_name FROM employees WHERE birth_date LIKE '____-12-24' AND hire_date LIKE '199%' ORDER BY birth_date ASC, hire_date DESC;
+SELECT CONCAT(
+    'Teaching people to code for ',
+    UNIX_TIMESTAMP() - UNIX_TIMESTAMP('2014-02-04'),
+    ' seconds'
+);
+SELECT UNIX_TIMESTAMP();
+SELECT UNIX_TIMESTAMP('2014-02-04');
+SELECT CONCAT(
+    'Teaching people to code for ',
+    NOW() - UNIX_TIMESTAMP('2014-02-04'),
+    ' seconds'
+);
+SELECT NOW();
+/* SELECT CONCAT(
+    'Teaching people to code for ',
+    UNIX_TIMESTAMP() - UNIX_TIMESTAMP('2014-02-04'),
+    ' seconds'
+);
+This give me the time since Jan 1st 1970 00h 00m 00s until now minus the time since Jan 1st 1970 00h 00m 00s until the date between parenthesis
+
+And if I do 
+
+SELECT CONCAT(
+    'Teaching people to code for ',
+    NOW() - UNIX_TIMESTAMP('2014-02-04'),
+    ' seconds'
+);
+This gives me the time that is right now minus the time from Jan 1st 1970 00h 00m 00s until the date between parenthesis.
+But honestly I don’t really understand the result I get and it’s probably not important right now.
+I just need to know it’s not the right operation if I want to know the number of seconds since
+I have been doing something using the linux epoch 6tm.
