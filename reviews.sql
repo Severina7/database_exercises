@@ -87,4 +87,16 @@ SELECT CONCAT(
 This gives me the time that is right now minus the time from Jan 1st 1970 00h 00m 00s until the date between parenthesis.
 But honestly I don’t really understand the result I get and it’s probably not important right now.
 I just need to know it’s not the right operation if I want to know the number of seconds since
-I have been doing something using the linux epoch 6tm.
+I have been doing something using the linux epoch 6tm.*/
+
+SELECT CONCAT (first_name, last_name) AS full_name, first_name, last_name FROM employees WHERE last_name LIKE 'E%e';
+SELECT CONCAT (UPPER(first_name), UPPER(last_name)) AS full_name, UPPER(first_name), UPPER(last_name) FROM employees WHERE last_name LIKE 'E%e';
+SELECT * , DATEDIFF(NOW(), hire_date)/365 AS tenure FROM employees WHERE birth_date LIKE '%12-24' AND hire_date LIKE '199%' ORDER BY tenure;
+SHOW tables FROM employees;
+SHOW columns FROM salaries;
+SELECT MAX(salary) as maxsalary, MIN(salary) AS minsalary, to_date FROM salaries;
+SELECT MAX(salary), MIN(salary) FROM salaries WHERE to_date > NOW();
+/* In the above query, why do I need to write "to_date > CURDATE()/NOW()" and not "to_date = CURDATE()/NOW()"? */
+
+SELECT * FROM employees LIMIT 10;
+SELECT CONCAT(SUBSTR(LOWER(first_name), 1, 1), SUBSTR(LOWER(last_name), 1, 4), '_', SUBSTR(birth_date, 6, 2), SUBSTR(birth_date, 3, 2)) AS username, first_name, last_name, birth_date FROM employees;
