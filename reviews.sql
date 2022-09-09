@@ -100,3 +100,10 @@ SELECT MAX(salary), MIN(salary) FROM salaries WHERE to_date > NOW();
 
 SELECT * FROM employees LIMIT 10;
 SELECT CONCAT(SUBSTR(LOWER(first_name), 1, 1), SUBSTR(LOWER(last_name), 1, 4), '_', SUBSTR(birth_date, 6, 2), SUBSTR(birth_date, 3, 2)) AS username, first_name, last_name, birth_date FROM employees;
+SELECT concat(first_name, " ", last_name) AS full_name, count(*) AS n_same_full_name
+FROM employees
+GROUP BY full_name
+HAVING n_same_full_name >= 1;
+SHOW tables FROM employees;
+SHOW columns FROM titles;
+SELECT DISTINCT title FROM titles;
