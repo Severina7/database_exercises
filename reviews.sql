@@ -106,4 +106,7 @@ GROUP BY full_name
 HAVING n_same_full_name >= 1;
 SHOW tables FROM employees;
 SHOW columns FROM titles;
-SELECT DISTINCT title FROM titles;
+SELECT COUNT(DISTINCT title) FROM titles;
+SELECT last_name FROM employees WHERE last_name LIKE 'E%e' GROUP BY last_name;
+SELECT last_name FROM employees WHERE last_name LIKE '%q%' AND last_name NOT LIKE '%qu%' GROUP BY last_name;
+SELECT last_name, COUNT(last_name) AS count_unique_last_names FROM employees WHERE last_name LIKE '%q%' AND last_name NOT LIKE '%qu%' GROUP BY last_name;
