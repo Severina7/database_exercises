@@ -110,3 +110,18 @@ SELECT COUNT(DISTINCT title) FROM titles;
 SELECT last_name FROM employees WHERE last_name LIKE 'E%e' GROUP BY last_name;
 SELECT last_name FROM employees WHERE last_name LIKE '%q%' AND last_name NOT LIKE '%qu%' GROUP BY last_name;
 SELECT last_name, COUNT(last_name) AS count_unique_last_names FROM employees WHERE last_name LIKE '%q%' AND last_name NOT LIKE '%qu%' GROUP BY last_name;
+SELECT first_name, gender, COUNT(*) AS gender_count_per_names FROM employees WHERE first_name IN ('Irena', 'Vidya', 'Maya') GROUP BY first_name, gender ORDER BY gender ASC;
+SELECT 
+    CONCAT(SUBSTR(LOWER(first_name), 1, 1),
+            SUBSTR(LOWER(last_name), 1, 4),
+            '_',
+            SUBSTR(birth_date, 6, 2),
+            SUBSTR(birth_date, 3, 2)) AS username,
+    first_name,
+    last_name,
+    birth_date,
+    COUNT(*) AS count_of_unique_username
+FROM
+    employees
+    GROUP BY username
+HAVING count_of_unique_username > 1;
