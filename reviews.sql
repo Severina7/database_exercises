@@ -1,3 +1,6 @@
+/* These exercises are reviews of exercises in Codeup SQL course.
+They comprise exercises and bonus exercises but also tests that I did
+to better understand the scope or meaing of a query or a function. */
 USE chipotle;
 USE elo_db;
 SELECT COUNT(*) FROM transactions;
@@ -117,11 +120,33 @@ SELECT
             '_',
             SUBSTR(birth_date, 6, 2),
             SUBSTR(birth_date, 3, 2)) AS username,
-    first_name,
-    last_name,
-    birth_date,
     COUNT(*) AS count_of_unique_username
 FROM
     employees
     GROUP BY username
-HAVING count_of_unique_username > 1;
+    HAVING count_of_unique_username >= 1;
+SELECT 
+    CONCAT(SUBSTR(LOWER(first_name), 1, 1),
+            SUBSTR(LOWER(last_name), 1, 4),
+            '_',
+            SUBSTR(birth_date, 6, 2),
+            SUBSTR(birth_date, 3, 2)) AS username
+FROM
+    employees;
+
+SHOW columns FROM salaries;
+SHOW columns FROM employees;
+SELECT emp_no, AVG(salary) AS average_salary FROM salaries GROUP BY emp_no HAVING AVG(salary);
+SELECT emp_no, salary FROM salaries WHERE emp_no = 10003;
+SHOW tables FROM employees;
+SHOW columns FROM dept_emp;
+SELECT dept_no, COUNT(emp_no) AS current_emp_num FROM dept_emp WHERE to_date >= CURDATE() GROUP BY dept_no HAVING COUNT(emp_no);
+SELECT dept_no, COUNT(emp_no) AS current_emp_num FROM dept_emp GROUP BY dept_no HAVING COUNT(emp_no);
+SHOW columns FROM salaries;
+SELECT emp_no, COUNT(salary) FROM salaries GROUP BY emp_no HAVING COUNT(salary) >= 1;
+SELECT emp_no, MAX(salary) FROM salaries GROUP BY emp_no HAVING MAX(salary);
+SELECT emp_no, MIN(salary) FROM salaries GROUP BY emp_no HAVING MIN(salary);
+SELECT emp_no, STD(salary) AS salary_std FROM salaries GROUP BY emp_no HAVING STD(salary);
+SELECT emp_no, MAX(salary) as max_salary FROM salaries GROUP BY emp_no HAVING MAX(salary) > 150000;
+SELECT emp_no, AVG(salary) AS average_salary FROM salaries GROUP BY emp_no HAVING AVG(salary) BETWEEN 80000 AND 90000;
+SELECT * FROM salaries WHERE emp_no BETWEEN 10003 AND 10013; -- Testing for the limits of BETWEEN...AND. It comprises the numbers at the limit (10003 and 10013)
