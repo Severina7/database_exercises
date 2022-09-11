@@ -1,8 +1,9 @@
 # Exercises on JOIN
+
 USE join_example_db;
 SHOW tables;
 SELECT * FROM roles;
-SELECT * FROM users LIMIT 1;
+SELECT * FROM users  LIMIT 1;
 # Use join, left join, and right join to combine results from the users and roles tables as we did in the lesson.
 # Before you run each query, guess the expected number of results.
 # Email column added for testing
