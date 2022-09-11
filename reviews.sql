@@ -150,3 +150,12 @@ SELECT emp_no, STD(salary) AS salary_std FROM salaries GROUP BY emp_no HAVING ST
 SELECT emp_no, MAX(salary) as max_salary FROM salaries GROUP BY emp_no HAVING MAX(salary) > 150000;
 SELECT emp_no, AVG(salary) AS average_salary FROM salaries GROUP BY emp_no HAVING AVG(salary) BETWEEN 80000 AND 90000;
 SELECT * FROM salaries WHERE emp_no BETWEEN 10003 AND 10013; -- Testing for the limits of BETWEEN...AND. It comprises the numbers at the limit (10003 and 10013)
+DESCRIBE employees;
+DESCRIBE salaries;
+SELECT CONCAT(e.first_name, ' ', e.last_name) AS full_name, d.dept_name
+FROM employees AS e
+JOIN dept_emp AS de
+  ON de.emp_no = e.emp_no
+JOIN departments AS d
+  ON d.dept_no = de.dept_no
+WHERE de.to_date = '9999-01-01' AND e.emp_no = 10001;
