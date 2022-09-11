@@ -160,6 +160,10 @@ JOIN departments AS d
   ON d.dept_no = de.dept_no
 WHERE de.to_date = '9999-01-01' AND e.emp_no = 10001;
 
+SELECT * FROM employees LIMIT 25;
+SELECT * FROM departments;
+SELECT * FROM dept_manager;
+# I could also use DESCRIBE employees/departments/dept_manager
 SELECT 
     d.dept_name AS 'Department Name',
     (CONCAT(e.first_name, ' ', e.last_name)) AS 'Manager Name'
