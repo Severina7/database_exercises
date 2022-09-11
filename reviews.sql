@@ -174,3 +174,50 @@ FROM
         JOIN
     departments AS d ON d.dept_no = dm.dept_no
 ORDER BY dept_name;
+SELECT * FROM employees LIMIT 25;
+SELECT * FROM departments;
+SELECT * FROM dept_manager;
+SELECT 
+    dept_name AS 'Department Name',
+    CONCAT(e.first_name, ' ', e.last_name) AS 'Manager Name'
+FROM
+    employees AS e
+        JOIN
+    dept_manager AS dm ON dm.emp_no = e.emp_no
+    AND gender = 'F' AND to_date > CURDATE()
+		JOIN
+    departments AS d ON d.dept_no = dm.dept_no
+    ORDER BY dept_name;
+    
+SHOW tables FROM employees;
+SELECT * FROM dept_emp LIMIT 5;
+SELECT * FROM departments;
+SELECT * FROM titles LIMIT 5;
+DESCRIBE titles;
+/* For this one I started with the depatment names and the titles of employees 
+before writing a query that looks like the example provided in the curriculum
+with the number of employees for each title */
+SELECT 
+    d.dept_name AS 'Department Name', t.title AS 'Titles'
+FROM
+    titles AS t
+        JOIN
+    dept_emp AS de ON de.emp_no = t.emp_no
+        AND de.to_date > CURDATE()
+        JOIN
+    departments AS d ON d.dept_no = de.dept_no
+        AND dept_name = 'Customer Service'
+GROUP BY dept_name, title;
+
+SELECT 
+    d.dept_name AS 'Department Name', t.title AS 'Titles', COUNT(*) AS 'Number of Employees with the Title'
+FROM
+    titles AS t
+        JOIN
+    dept_emp AS de ON de.emp_no = t.emp_no
+        AND de.to_date > CURDATE()
+        AND t.to_date > CURDATE()
+        JOIN
+    departments AS d ON d.dept_no = de.dept_no
+        AND dept_name = 'Customer Service'
+GROUP BY dept_name, title;
