@@ -223,4 +223,36 @@ FROM
 GROUP BY dept_name, title;
 SHOW tables FROM employees;
 SELECT * FROM dept_manager;
-SELECT d.dept_name AS 'Department Name', CONCAT(e.first_name, ' ', e.last_name) AS 'Manager Name', s.salary AS 'Current Salary' FROM employees AS e JOIN 
+SELECT * FROM salaries LIMIT 15;
+SELECT * FROM departments;
+SELECT * FROM employees LIMIT 10;
+SELECT 
+    d.dept_name AS 'Department Name',
+    CONCAT(e.first_name, ' ', e.last_name) AS 'Manager Name',
+    s.salary AS 'Current Salary'
+FROM
+    employees AS e
+        JOIN
+    salaries AS s ON s.emp_no = e.emp_no
+        JOIN
+    dept_manager AS dm ON dm.emp_no = e.emp_no
+        AND dm.to_date > CURDATE()
+        JOIN
+    salaries AS s ON s.emp_no = e.emp_no
+        AND s.to_date > CURDATE();
+        
+SELECT 
+    d.dept_name AS 'Department Name',
+    CONCAT(e.first_name, ' ', e.last_name) AS 'Name',
+    s.salary AS 'Salary'
+FROM
+    employees AS e
+        JOIN
+    salaries AS s ON e.emp_no = s.emp_no
+        AND s.to_date > NOW()
+        JOIN
+    dept_manager AS dm ON dm.emp_no = e.emp_no
+        AND dm.to_date > NOW()
+        JOIN
+    departments AS d USING (dept_no)
+ORDER BY dept_name;
