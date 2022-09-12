@@ -284,38 +284,59 @@ FROM
 GROUP BY d.dept_name ORDER BY ROUND(AVG(salary)) DESC;
 
 # 8. 
+USE employees;
 SELECT 
     e.emp_no 'Emp Number',
+    d.dept_name AS 'Department',
     CONCAT(e.first_name, ' ', e.last_name) AS 'Emp Name',
-    s.salary AS 'Highest Salary',
-    d.dept_name AS 'Department'
+    s.salary AS 'Highest Salary'
 FROM
     dept_emp AS de
         JOIN
-    salaries AS s USING (emp_no)
+    salaries AS s ON s.emp_no = de.emp_no
+        AND s.to_date > CURDATE()
+        AND de.to_date > CURDATE()
         JOIN
-    departments AS d USING (dept_no)
+    departments AS d ON d.dept_no = de.dept_no
+        AND d.dept_name = 'Marketing'
         JOIN
-    employees AS e USING (emp_no)
-WHERE
-    dept_name = 'Marketing'
-        AND s.to_date = CURDATE()
-        AND de.to_date = CURDATE();
-        
-        SELECT 
+    employees AS e ON e.emp_no = de.emp_no
+ORDER BY s.salary DESC LIMIT 1;
+
+SELECT 
     e.emp_no 'Emp Number',
+    d.dept_name AS 'Department',
     CONCAT(e.first_name, ' ', e.last_name) AS 'Emp Name',
-    s.salary AS 'Highest Salary',
-    d.dept_name AS 'Department'
+    s.salary AS 'Highest Salary'
 FROM
     employees AS e
         JOIN
+    dept_emp AS de ON e.emp_no = de.emp_no
+        AND de.to_date > CURDATE()
+        JOIN
+    salaries AS s ON e.emp_no = s.emp_no
+        AND s.to_date > CURDATE()
+        JOIN
+    departments AS d ON de.dept_no = d.dept_no
+        AND d.dept_name = 'Marketing'
+ORDER BY s.salary DESC
+LIMIT 1;
+
+# 9. 
+SELECT 
+    d.dept_name, e.first_name, e.last_name, s.salary
+FROM
+    employees AS e
+        JOIN
+    dept_manager AS dm ON dm.emp_no = e.emp_no
+        AND dm.to_date > CURDATE()
+        JOIN
     salaries AS s ON s.emp_no = e.emp_no
+        AND s.to_date > CURDATE()
         JOIN
-	dept_emp AS de ON de.emp_no = e.emp_no
-        JOIN
-    departments AS d ON d.dept_no = de.dept_no
-WHERE
-    dept_name = 'Marketing'
-        AND s.to_date = CURDATE()
-        AND de.to_date = CURDATE();
+    departments AS d ON d.dept_no = dm.dept_no
+		AND dm.to_date > CURDATE()
+ORDER BY s.salary DESC
+LIMIT 1;
+
+# 10. 
