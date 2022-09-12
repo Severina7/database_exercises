@@ -221,3 +221,6 @@ FROM
     departments AS d ON d.dept_no = de.dept_no
         AND dept_name = 'Customer Service'
 GROUP BY dept_name, title;
+SHOW tables FROM employees;
+SELECT * FROM dept_manager;
+SELECT d.dept_name AS 'Department Name', CONCAT(e.first_name, ' ', e.last_name) AS 'Manager Name', s.salary AS 'Current Salary' FROM employees AS e JOIN 
