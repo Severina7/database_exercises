@@ -238,9 +238,11 @@ FROM
     dept_manager AS dm ON dm.emp_no = e.emp_no
         AND dm.to_date > CURDATE()
         JOIN
-    salaries AS s ON s.emp_no = e.emp_no
-        AND s.to_date > CURDATE();
-        
+    departments AS d ON d.dept_no = dm.dept_no
+        AND s.to_date > CURDATE()
+	ORDER BY dept_name;
+    
+    # 6. 
 SELECT 
     d.dept_name AS 'Department Name',
     CONCAT(e.first_name, ' ', e.last_name) AS 'Name',
@@ -256,3 +258,48 @@ FROM
         JOIN
     departments AS d USING (dept_no)
 ORDER BY dept_name;
+
+SELECT 
+    de.dept_no AS 'Dept Number',
+    d.dept_name AS 'Dept Name',
+    COUNT(*) AS 'Number of Employees'
+FROM
+    dept_emp AS de
+        JOIN
+    departments AS d USING (dept_no) WHERE to_date > CURDATE()
+    GROUP BY dept_no, dept_name
+    ORDER BY dept_no;
+
+# 7.
+SELECT 
+    d.dept_name AS 'Dept Name', ROUND(AVG(salary)) AS 'Average Salary'
+FROM
+    dept_emp AS de
+        JOIN
+    salaries AS s ON de.emp_no = s.emp_no
+        AND de.to_date > CURDATE()
+        AND s.to_date > CURDATE()
+        JOIN
+    departments AS d ON de.dept_no = d.dept_no
+GROUP BY d.dept_name ORDER BY ROUND(AVG(salary)) DESC;
+
+# 8. 
+SELECT 
+    e.emp_no 'Emp Number',
+    CONCAT(e.first_name, ' ', e.last_name) AS 'Emp Name',
+    s.salary AS 'Highest Salary',
+    d.dept_name AS 'Department'
+FROM
+    dept_emp AS de
+        JOIN
+    salaries AS s USING (emp_no)
+        JOIN
+    departments AS d USING (dept_no)
+        JOIN
+    employees AS e USING (emp_no)
+WHERE
+    dept_name = 'MARKETING'
+        AND s.to_date = CURDATE()
+        AND de.to_date = CURDATE()
+GROUP BY 
+	emp_no, salary, dept_name;
