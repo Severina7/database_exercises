@@ -298,8 +298,24 @@ FROM
         JOIN
     employees AS e USING (emp_no)
 WHERE
-    dept_name = 'MARKETING'
+    dept_name = 'Marketing'
         AND s.to_date = CURDATE()
-        AND de.to_date = CURDATE()
-GROUP BY 
-	emp_no, salary, dept_name;
+        AND de.to_date = CURDATE();
+        
+        SELECT 
+    e.emp_no 'Emp Number',
+    CONCAT(e.first_name, ' ', e.last_name) AS 'Emp Name',
+    s.salary AS 'Highest Salary',
+    d.dept_name AS 'Department'
+FROM
+    employees AS e
+        JOIN
+    salaries AS s ON s.emp_no = e.emp_no
+        JOIN
+	dept_emp AS de ON de.emp_no = e.emp_no
+        JOIN
+    departments AS d ON d.dept_no = de.dept_no
+WHERE
+    dept_name = 'Marketing'
+        AND s.to_date = CURDATE()
+        AND de.to_date = CURDATE();
