@@ -217,12 +217,15 @@ SELECT * FROM dept_manager;
 SELECT * FROM departments;
 # Setting up the table with the managers' name because there is no table with managers' name on
 SELECT 
-    dm.dept_no,
+    dm.dept_no AS 'Dept Number',
+    d.dept_name AS 'Dept Name',
     CONCAT(e.first_name, ' ', e.last_name) AS managers
 FROM
     employees AS e
         JOIN
-    dept_manager AS dm ON e.emp_no = dm.emp_no AND to_date > NOW();
+    dept_manager AS dm ON e.emp_no = dm.emp_no AND to_date > NOW()
+		JOIN
+	departments AS d ON d.dept_no = dm.dept_no AND to_date > NOW();
 
 # Writing the final query to find the names of all current employees, their department name, and their current manager's name.
 SELECT 
