@@ -340,3 +340,18 @@ ORDER BY s.salary DESC
 LIMIT 1;
 
 # 10. 
+USE employees;
+SELECT 
+    d.dept_name AS 'Department Name',
+    ROUND(AVG(s.salary)) AS 'Average Salary'
+FROM
+    dept_emp AS de
+        JOIN
+    departments AS d ON d.dept_no = de.dept_no
+        JOIN
+    salaries AS s ON s.emp_no = de.emp_no
+        AND s.to_date > CURDATE()
+        AND de.to_date > CURDATE()
+GROUP BY dept_name
+HAVING ROUND(AVG(s.salary))
+ORDER BY ROUND(AVG(s.salary)) DESC;
