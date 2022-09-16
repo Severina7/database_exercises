@@ -388,3 +388,5 @@ FROM
     JOIN dept_manager AS dm ON e.emp_no = dm.emp_no
         AND to_date > CURDATE()) AS m ON m.dept_no = d.dept_no
 ORDER BY d.dept_name;
+USE employees;
+SELECT COUNT(*) FROM employees;
