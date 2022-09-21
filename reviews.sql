@@ -428,3 +428,69 @@ SELECT g.birth_date, g.emp_no, g.first_name from
     FROM employees
     WHERE birth_date = birth_date
 ) as g GROUP BY emp_no;
+
+SELECT g.first_name, g.last_name, salaries.salary
+FROM
+    (
+        SELECT *
+        FROM employees
+        WHERE first_name like 'Geor%'
+    ) as g
+JOIN salaries ON g.emp_no = salaries.emp_no
+WHERE to_date > CURDATE();
+SHOW tables FROM employees;
+SHOW columns FROM employees;
+SELECT 
+    emp_no, first_name, last_name, hire_date
+FROM
+    employees
+WHERE
+    hire_date = (SELECT 
+            hire_date
+        FROM
+            employees
+        WHERE
+            emp_no = 101010);
+            
+SELECT emp_no FROM employees WHERE first_name = 'Aamod';
+SELECT DISTINCT title FROM titles;
+SELECT title FROM titles WHERE emp_no = (SELECT emp_no FROM employees WHERE first_name = 'Aamod') AND to_date = CURDATE();
+SELECT emp_no, first_name, title FROM employees WHERE emp_no IN (SELECT emp_no FROM titles WHERE to_date = CURDATE()) AND first_name = 'Aamod';
+
+SELECT DISTINCT
+    (t.title) AS 'All Titles', e.first_name AS 'First Name'
+FROM
+    titles AS t
+        JOIN
+    employees AS e ON e.emp_no = t.emp_no
+        JOIN
+    dept_emp AS de ON de.emp_no = e.emp_no
+WHERE
+    first_name IN (SELECT 
+            first_name
+        FROM
+            employees
+        WHERE
+            first_name = 'Aamod')
+        AND de.to_date > CURDATE()
+GROUP BY first_name , title;
+
+SELECT 
+	emp_no,
+    title,
+    first_name
+FROM
+    titles
+        JOIN
+    employees USING (emp_no)
+        JOIN
+    dept_emp USING (emp_no)
+WHERE
+    first_name IN (SELECT 
+            first_name
+        FROM
+            employees
+        WHERE
+            first_name = 'Aamod')
+        AND dept_emp.to_date > CURDATE()
+GROUP BY emp_no, title;
