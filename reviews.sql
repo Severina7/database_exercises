@@ -495,5 +495,31 @@ WHERE
         AND dept_emp.to_date > CURDATE()
 GROUP BY emp_no, title;
 
-SELECT COUNT(emp_no) FROM employees WHERE emp_no NOT IN (SELECT emp_no FROM dept_emp WHERE to_date = '9999-01-01');
+USE employees;
+SELECT 
+    COUNT(emp_no) AS 'Count of Non-Employees'
+FROM
+    employees
+WHERE
+    emp_no NOT IN (SELECT 
+            emp_no
+        FROM
+            dept_emp
+        WHERE
+            to_date > CURDATE());
+# There is a different result using '9999-01-01' OR 'CURDATE()', try to find out why
+# Apparently it was a bug LoL
 
+SELECT 
+    CONCAT(first_name, ' ', last_name)
+FROM
+    employees
+WHERE
+    gender = 'F'
+        AND emp_no IN (SELECT 
+            emp_no
+        FROM
+            dept_manager
+        WHERE
+            to_date > CURDATE());
+            
