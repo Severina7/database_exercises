@@ -523,3 +523,16 @@ WHERE
         WHERE
             to_date > CURDATE());
             
+SELECT 
+    e.emp_no, CONCAT(e.first_name, ' ', e.last_name)
+FROM
+    employees AS e
+        JOIN
+    salaries AS s ON s.emp_no = e.emp_no
+WHERE
+    salary > (SELECT 
+            AVG(salary)
+        FROM
+            s
+        WHERE
+            to_date > CURDATE());
