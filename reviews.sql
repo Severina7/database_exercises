@@ -494,3 +494,5 @@ WHERE
             first_name = 'Aamod')
         AND dept_emp.to_date > CURDATE()
 GROUP BY emp_no, title;
+
+SELECT COUNT(emp_no) FROM employees WHERE emp_no NOT IN (SELECT emp_no FROM dept_emp WHERE to_date = '9999-01-01');
