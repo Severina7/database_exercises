@@ -522,17 +522,44 @@ WHERE
             dept_manager
         WHERE
             to_date > CURDATE());
+		
+USE employees;
+SELECT 
+    AVG(salary)
+FROM
+    salaries;
             
 SELECT 
-    e.emp_no, CONCAT(e.first_name, ' ', e.last_name)
+    e.emp_no AS 'Emp Number',
+    CONCAT(e.first_name, ' ', e.last_name) AS 'Full Name',
+    s.salary AS 'Salaries'
 FROM
     employees AS e
         JOIN
     salaries AS s ON s.emp_no = e.emp_no
 WHERE
-    salary > (SELECT 
+    to_date > CURDATE()
+        AND salary > (SELECT 
             AVG(salary)
         FROM
-            s
+            salaries);
+            
+SELECT MAX(salary) FROM salaries WHERE to_date > CURDATE();
+SELECT STD(salary) FROM salaries WHERE to_date > CURDATE();
+SELECT 
+    COUNT(*)
+FROM
+    salaries
+WHERE
+    to_date > CURDATE()
+        AND salary > ((SELECT 
+            MAX(salary)
+        FROM
+            salaries
         WHERE
-            to_date > CURDATE());
+            to_date > CURDATE()) - (SELECT 
+            STDDEV(salary)
+        FROM
+            salaries
+        WHERE
+            to_date > CURDATE()));
