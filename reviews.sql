@@ -597,4 +597,5 @@ GROUP BY birth_date;
 
 SELECT * FROM departments;
 SELECT * FROM salaries;
-SELECT * 
+SELECT * FROM employees WHERE emp_no IN (SELECT emp_no FROM dept_emp WHERE to_date > CURDATE());
+SELECT * FROM employees WHERE gender = '';
