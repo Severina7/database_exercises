@@ -566,6 +566,7 @@ WHERE
             to_date > CURDATE()));
             
 SELECT DATABASE();
+USE employees;
 
 USE employees;
 SELECT e.emp_no, d.dept_no, e.first_name, e.last_name, e.hire_date, de.to_date,
