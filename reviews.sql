@@ -544,6 +544,7 @@ WHERE
         FROM
             salaries);
             
+USE employees;
 SELECT MAX(salary) FROM salaries WHERE to_date > CURDATE();
 SELECT STD(salary) FROM salaries WHERE to_date > CURDATE();
 SELECT 
@@ -563,3 +564,5 @@ WHERE
             salaries
         WHERE
             to_date > CURDATE()));
+            
+SELECT DATABASE();
