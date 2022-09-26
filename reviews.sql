@@ -599,3 +599,23 @@ SELECT * FROM departments;
 SELECT * FROM salaries;
 SELECT * FROM employees WHERE emp_no IN (SELECT emp_no FROM dept_emp WHERE to_date > CURDATE());
 SELECT * FROM employees WHERE gender = '';
+
+USE employees;
+SELECT * FROM employees LIMIT 10;
+SELECT emp_no FROM employees WHERE hire_date LIKE '1985-01-%' AND emp_no = (SELECT DISTINCT emp_no FROM salaries WHERE to_date <> CURDATE());
+SELECT e.emp_no FROM employees AS e INNER JOIN salaries AS s USING (emp_no) WHERE to_date != CURDATE();
+SELECT * FROM salaries LIMIT 50;
+SELECT DISTINCT
+    *, DATEDIFF(to_date, hire_date) / 365 AS tenure
+FROM
+    employees AS e
+        JOIN
+    salaries AS s USING (emp_no)
+WHERE
+    hire_date LIKE '1985-01-%'
+        AND to_date NOT IN (SELECT 
+            to_date
+        FROM
+            salaries
+        WHERE
+            to_date > CURDATE());
