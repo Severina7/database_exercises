@@ -107,6 +107,9 @@ SELECT concat(first_name, " ", last_name) AS full_name, count(*) AS n_same_full_
 FROM employees
 GROUP BY full_name
 HAVING n_same_full_name >= 1;
+
+SELECT COUNT(*) FROM employees WHERE first_name LIKE 'Mokhtar' AND last_name LIKE 'Bernatsky';
+
 SHOW tables FROM employees;
 SHOW columns FROM titles;
 SELECT COUNT(DISTINCT title) FROM titles;
@@ -605,17 +608,48 @@ SELECT * FROM employees LIMIT 10;
 SELECT emp_no FROM employees WHERE hire_date LIKE '1985-01-%' AND emp_no = (SELECT DISTINCT emp_no FROM salaries WHERE to_date <> CURDATE());
 SELECT e.emp_no FROM employees AS e INNER JOIN salaries AS s USING (emp_no) WHERE to_date != CURDATE();
 SELECT * FROM salaries LIMIT 50;
-SELECT DISTINCT
-    *, DATEDIFF(to_date, hire_date) / 365 AS tenure
+
+SELECT 
+    emp_no, MAX(to_date) AS 'Departure date'
+FROM
+    salaries
+WHERE
+    emp_no = '10001'
+GROUP BY emp_no , to_date;
+
+SELECT MAX(to_date) AS 'Departure date' FROM salaries;
+
+SELECT emp_no, MAX(to_date) FROM salaries WHERE to_date != '9999-01-01' GROUP BY emp_no, to_date;
+
+SELECT 
+    emp_no,
+    DATEDIFF(MAX(to_date), hire_date) / 365 AS tenure
 FROM
     employees AS e
         JOIN
     salaries AS s USING (emp_no)
-WHERE
-    hire_date LIKE '1985-01-%'
-        AND to_date NOT IN (SELECT 
-            to_date
-        FROM
-            salaries
-        WHERE
-            to_date > CURDATE());
+GROUP BY emp_no, to_date, hire_date;
+
+SELECT first_name, COUNT(first_name)
+FROM employees
+WHERE first_name NOT LIKE '%a%'
+GROUP BY first_name;
+
+SELECT first_name, COUNT(first_name)
+FROM employees
+WHERE first_name LIKE 'Bodo'
+GROUP BY first_name;
+
+SELECT emp_no, MAX(to_date) AS 'Max date' FROM salaries WHERE to_date != '9999-01-01' GROUP BY emp_no, to_date;
+
+SELECT COUNT(to_date) FROM salaries WHERE to_date = '9999-01-01';
+
+SELECT DISTINCT COUNT(emp_no) FROM employees;
+
+USE employees;
+
+SHOW tables FROM employees;
+
+SELECT * FROM emloyees;
+
+# , COUNT(emp_no) AS 'Count of emp recurrence' 
