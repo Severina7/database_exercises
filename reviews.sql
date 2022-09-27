@@ -646,10 +646,16 @@ SELECT COUNT(to_date) FROM salaries WHERE to_date = '9999-01-01';
 
 SELECT DISTINCT COUNT(emp_no) FROM employees;
 
+SELECT COUNT(emp_no) FROM employees;
+
+SELECT COUNT(DISTINCT to_date) FROM salaries WHERE to_date = '9999-01-01';
+
+SELECT DISTINCT emp_no FROM salaries;
+
 USE employees;
 
 SHOW tables FROM employees;
 
-SELECT * FROM emloyees;
+SELECT * FROM employees;
 
 # , COUNT(emp_no) AS 'Count of emp recurrence' 
