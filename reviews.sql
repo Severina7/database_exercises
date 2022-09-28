@@ -39,7 +39,15 @@ SHOW columns FROM employees;
 SELECT * FROM employees LIMIT 10;
 SELECT first_name, last_name FROM employees WHERE first_name IN ('Irena', 'Vidya', 'Maya');
 SELECT first_name, last_name FROM employees WHERE first_name IN ('Irena') OR first_name IN ('Vidya') OR first_name IN ('Maya');
-SELECT gender, first_name, last_name FROM employees WHERE (first_name = 'Irena' OR first_name = 'Vidya' OR first_name = 'Maya') AND gender = 'M';
+SELECT 
+    gender, first_name, last_name
+FROM
+    employees
+WHERE
+    (first_name = 'Irena'
+        OR first_name = 'Vidya'
+        OR first_name = 'Maya')
+        AND gender = 'M';
 SELECT first_name, last_name FROM employees WHERE last_name LIKE 'E%';
 SELECT first_name, last_name FROM employees WHERE last_name LIKE 'E%' OR last_name LIKE '%E';
 SELECT COUNT(*) FROM employees WHERE last_name LIKE '%E' AND last_name NOT LIKE 'E%';
@@ -49,17 +57,81 @@ SELECT hire_date, first_name, last_name FROM employees WHERE hire_date LIKE '199
 SELECT COUNT(*) FROM employees WHERE hire_date LIKE '199%';
 SELECT * FROM employees LIMIT 10;
 SELECT birth_date, first_name, last_name FROM employees WHERE birth_date LIKE '%12-24';
-SELECT * FROM employees WHERE birth_date LIKE '%12-24' AND hire_date LIKE '199%';
-SELECT first_name, last_name FROM employees WHERE last_name LIKE '%q%';
-SELECT COUNT(*) FROM employees WHERE last_name LIKE '%q%' AND last_name NOT LIKE '%qu%';
-SELECT first_name, last_name FROM employees WHERE first_name IN ('Irena', 'Vidya', 'Maya') ORDER BY first_name;
-SELECT first_name, last_name FROM employees WHERE first_name IN ('Irena', 'Vidya', 'Maya') ORDER BY first_name LIMIT 1;
-SELECT first_name, last_name FROM employees WHERE first_name IN ('Irena', 'Vidya', 'Maya') ORDER BY first_name DESC;
-SELECT first_name, last_name FROM employees WHERE first_name IN ('Irena', 'Vidya', 'Maya') ORDER BY first_name, last_name;
-SELECT first_name, last_name FROM employees WHERE first_name IN ('Irena', 'Vidya', 'Maya') ORDER BY first_name DESC, last_name DESC;
-SELECT emp_no, first_name, last_name FROM employees WHERE last_name LIKE 'E%e' ORDER BY emp_no;
-SELECT hire_date, birth_date, first_name, last_name FROM employees WHERE last_name LIKE 'E%e' ORDER BY birth_date;
-SELECT birth_date, hire_date, first_name, last_name FROM employees WHERE birth_date LIKE '____-12-24' AND hire_date LIKE '199%' ORDER BY birth_date ASC, hire_date DESC;
+SELECT 
+    *
+FROM
+    employees
+WHERE
+    birth_date LIKE '%12-24'
+        AND hire_date LIKE '199%';
+SELECT 
+    first_name, last_name
+FROM
+    employees
+WHERE
+    last_name LIKE '%q%';
+SELECT 
+    COUNT(*)
+FROM
+    employees
+WHERE
+    last_name LIKE '%q%'
+        AND last_name NOT LIKE '%qu%';
+SELECT 
+    first_name, last_name
+FROM
+    employees
+WHERE
+    first_name IN ('Irena' , 'Vidya', 'Maya')
+ORDER BY first_name;
+SELECT 
+    first_name, last_name
+FROM
+    employees
+WHERE
+    first_name IN ('Irena' , 'Vidya', 'Maya')
+ORDER BY first_name
+LIMIT 1;
+SELECT 
+    first_name, last_name
+FROM
+    employees
+WHERE
+    first_name IN ('Irena' , 'Vidya', 'Maya')
+ORDER BY first_name DESC;
+SELECT 
+    first_name, last_name
+FROM
+    employees
+WHERE
+    first_name IN ('Irena' , 'Vidya', 'Maya')
+ORDER BY first_name , last_name;
+SELECT 
+    first_name, last_name
+FROM
+    employees
+WHERE
+    first_name IN ('Irena' , 'Vidya', 'Maya')
+ORDER BY first_name DESC , last_name DESC;
+SELECT 
+    emp_no, first_name, last_name
+FROM
+    employees
+WHERE
+    last_name LIKE 'E%e'
+ORDER BY emp_no;
+SELECT 
+    hire_date, birth_date, first_name, last_name
+FROM
+    employees WHERE last_name LIKE 'E%e' ORDER BY birth_date;
+SELECT 
+    birth_date, hire_date, first_name, last_name
+FROM
+    employees
+WHERE
+    birth_date LIKE '____-12-24'
+        AND hire_date LIKE '199%'
+ORDER BY birth_date ASC , hire_date DESC;
 SELECT CONCAT(
     'Teaching people to code for ',
     UNIX_TIMESTAMP() - UNIX_TIMESTAMP('2014-02-04'),
@@ -78,7 +150,8 @@ SELECT NOW();
     UNIX_TIMESTAMP() - UNIX_TIMESTAMP('2014-02-04'),
     ' seconds'
 );
-This give me the time since Jan 1st 1970 00h 00m 00s until now minus the time since Jan 1st 1970 00h 00m 00s until the date between parenthesis
+This give me the time since Jan 1st 1970 00h 00m 00s until now minus the time since
+Jan 1st 1970 00h 00m 00s until the date between parenthesis
 
 And if I do 
 
@@ -104,7 +177,17 @@ SELECT MAX(salary), MIN(salary) FROM salaries WHERE to_date > NOW();
 /* In the above query, why do I need to write "to_date > CURDATE()/NOW()" and not "to_date = CURDATE()/NOW()"? */
 
 SELECT * FROM employees LIMIT 10;
-SELECT CONCAT(SUBSTR(LOWER(first_name), 1, 1), SUBSTR(LOWER(last_name), 1, 4), '_', SUBSTR(birth_date, 6, 2), SUBSTR(birth_date, 3, 2)) AS username, first_name, last_name, birth_date FROM employees;
+SELECT 
+    CONCAT(SUBSTR(LOWER(first_name), 1, 1),
+            SUBSTR(LOWER(last_name), 1, 4),
+            '_',
+            SUBSTR(birth_date, 6, 2),
+            SUBSTR(birth_date, 3, 2)) AS username,
+    first_name,
+    last_name,
+    birth_date
+FROM
+    employees;
 SELECT concat(first_name, " ", last_name) AS full_name, count(*) AS n_same_full_name
 FROM employees
 GROUP BY full_name
@@ -117,8 +200,22 @@ SHOW columns FROM titles;
 SELECT COUNT(DISTINCT title) FROM titles;
 SELECT last_name FROM employees WHERE last_name LIKE 'E%e' GROUP BY last_name;
 SELECT last_name FROM employees WHERE last_name LIKE '%q%' AND last_name NOT LIKE '%qu%' GROUP BY last_name;
-SELECT last_name, COUNT(last_name) AS count_unique_last_names FROM employees WHERE last_name LIKE '%q%' AND last_name NOT LIKE '%qu%' GROUP BY last_name;
-SELECT first_name, gender, COUNT(*) AS gender_count_per_names FROM employees WHERE first_name IN ('Irena', 'Vidya', 'Maya') GROUP BY first_name, gender ORDER BY gender ASC;
+SELECT 
+    last_name, COUNT(last_name) AS count_unique_last_names
+FROM
+    employees
+WHERE
+    last_name LIKE '%q%'
+        AND last_name NOT LIKE '%qu%'
+GROUP BY last_name;
+SELECT 
+    first_name, gender, COUNT(*) AS gender_count_per_names
+FROM
+    employees
+WHERE
+    first_name IN ('Irena' , 'Vidya', 'Maya')
+GROUP BY first_name , gender
+ORDER BY gender ASC;
 SELECT 
     CONCAT(SUBSTR(LOWER(first_name), 1, 1),
             SUBSTR(LOWER(last_name), 1, 4),
@@ -145,7 +242,14 @@ SELECT emp_no, AVG(salary) AS average_salary FROM salaries GROUP BY emp_no HAVIN
 SELECT emp_no, salary FROM salaries WHERE emp_no = 10003;
 SHOW tables FROM employees;
 SHOW columns FROM dept_emp;
-SELECT dept_no, COUNT(emp_no) AS current_emp_num FROM dept_emp WHERE to_date >= CURDATE() GROUP BY dept_no HAVING COUNT(emp_no);
+SELECT 
+    dept_no, COUNT(emp_no) AS current_emp_num
+FROM
+    dept_emp
+WHERE
+    to_date >= CURDATE()
+GROUP BY dept_no
+HAVING COUNT(emp_no);
 SELECT dept_no, COUNT(emp_no) AS current_emp_num FROM dept_emp GROUP BY dept_no HAVING COUNT(emp_no);
 SHOW columns FROM salaries;
 SELECT emp_no, COUNT(salary) FROM salaries GROUP BY emp_no HAVING COUNT(salary) >= 1;
@@ -154,7 +258,9 @@ SELECT emp_no, MIN(salary) FROM salaries GROUP BY emp_no HAVING MIN(salary);
 SELECT emp_no, STD(salary) AS salary_std FROM salaries GROUP BY emp_no HAVING STD(salary);
 SELECT emp_no, MAX(salary) as max_salary FROM salaries GROUP BY emp_no HAVING MAX(salary) > 150000;
 SELECT emp_no, AVG(salary) AS average_salary FROM salaries GROUP BY emp_no HAVING AVG(salary) BETWEEN 80000 AND 90000;
-SELECT * FROM salaries WHERE emp_no BETWEEN 10003 AND 10013; -- Testing for the limits of BETWEEN...AND. It comprises the numbers at the limit (10003 and 10013)
+-- Testing for the limits of BETWEEN...AND. It comprises the numbers at the limit (10003 and 10013)
+SELECT * FROM salaries WHERE emp_no BETWEEN 10003 AND 10013;
+
 DESCRIBE employees;
 DESCRIBE salaries;
 SELECT CONCAT(e.first_name, ' ', e.last_name) AS full_name, d.dept_name
@@ -460,7 +566,18 @@ WHERE
 SELECT emp_no FROM employees WHERE first_name = 'Aamod';
 SELECT DISTINCT title FROM titles;
 SELECT title FROM titles WHERE emp_no = (SELECT emp_no FROM employees WHERE first_name = 'Aamod') AND to_date = CURDATE();
-SELECT emp_no, first_name, title FROM employees WHERE emp_no IN (SELECT emp_no FROM titles WHERE to_date = CURDATE()) AND first_name = 'Aamod';
+SELECT 
+    emp_no, first_name, title
+FROM
+    employees
+WHERE
+    emp_no IN (SELECT 
+            emp_no
+        FROM
+            titles
+        WHERE
+            to_date = CURDATE())
+        AND first_name = 'Aamod';
 
 SELECT DISTINCT
     (t.title) AS 'All Titles', e.first_name AS 'First Name'
@@ -586,9 +703,15 @@ JOIN departments AS d USING(dept_no) LIMIT 50;
 USE employees;
 SELECT first_name, last_name,
 CASE
-	WHEN last_name LIKE 'A%' or last_name LIKE 'B%' or last_name LIKE 'C%' or last_name LIKE 'D%' or last_name LIKE 'E%' or last_name LIKE 'F%' or last_name LIKE 'G%' or last_name LIKE 'H%' THEN 'A-H'
-	WHEN last_name LIKE 'I%' or last_name LIKE 'J%' or last_name LIKE 'K%' or last_name LIKE 'L%' or last_name LIKE 'M%' or last_name LIKE 'N%' or last_name LIKE 'O%' or last_name LIKE 'P%' or last_name LIKE 'Q%' THEN 'I-Q'
-	WHEN last_name LIKE 'R%' or last_name LIKE 'S%' or last_name LIKE 'T%' or last_name LIKE 'U%' or last_name LIKE 'V%' or last_name LIKE 'W%' or last_name LIKE 'X%' or last_name LIKE 'Y%' or last_name LIKE 'Z%' THEN 'R-Z'
+	WHEN last_name LIKE 'A%' or last_name LIKE 'B%' or last_name LIKE 'C%' or
+    last_name LIKE 'D%' or last_name LIKE 'E%' or last_name LIKE 'F%' or
+    last_name LIKE 'G%' or last_name LIKE 'H%' THEN 'A-H'
+	WHEN last_name LIKE 'I%' or last_name LIKE 'J%' or last_name LIKE 'K%' or
+    last_name LIKE 'L%' or last_name LIKE 'M%' or last_name LIKE 'N%' or
+    last_name LIKE 'O%' or last_name LIKE 'P%' or last_name LIKE 'Q%' THEN 'I-Q'
+	WHEN last_name LIKE 'R%' or last_name LIKE 'S%' or last_name LIKE 'T%' or
+    last_name LIKE 'U%' or last_name LIKE 'V%' or last_name LIKE 'W%' or
+    last_name LIKE 'X%' or last_name LIKE 'Y%' or last_name LIKE 'Z%' THEN 'R-Z'
     ELSE 'Other'
 END AS alpha_group
 FROM employees ORDER BY last_name;
@@ -607,7 +730,18 @@ SELECT * FROM employees WHERE gender = '';
 
 USE employees;
 SELECT * FROM employees LIMIT 10;
-SELECT emp_no FROM employees WHERE hire_date LIKE '1985-01-%' AND emp_no = (SELECT DISTINCT emp_no FROM salaries WHERE to_date <> CURDATE());
+SELECT 
+    emp_no
+FROM
+    employees
+WHERE
+    hire_date LIKE '1985-01-%'
+        AND emp_no = (SELECT DISTINCT
+            emp_no
+        FROM
+            salaries
+        WHERE
+            to_date <> CURDATE());
 SELECT e.emp_no FROM employees AS e INNER JOIN salaries AS s USING (emp_no) WHERE to_date != CURDATE();
 SELECT * FROM salaries LIMIT 50;
 
@@ -661,14 +795,20 @@ SHOW tables FROM employees;
 SELECT * FROM employees;
 
 # , COUNT(emp_no) AS 'Count of emp recurrence' 
-
+###########################################################################################################################################
+-- Getting the right database 
 USE employees;
+/* Getting which employees are no longer with the company OR still with it OR changed department
+An employee that switched departments will have two or more to_dates and vice versa
+I tried MAX(to_date) and it is not necessary */
+
 SELECT DISTINCT
-    emp_no, MAX(to_date)
+    emp_no, to_date
 FROM
     dept_emp
 GROUP BY emp_no , to_date;
 
+-- Total current employees
 SELECT 
     COUNT(DISTINCT emp_no)
 FROM
@@ -678,6 +818,10 @@ FROM
 WHERE
     to_date > CURDATE();
 
+-- Total number of employees the company has ever had
+SELECT COUNT(DISTINCT emp_no) FROM employees;
+
+-- Number of employees no longer with the company
 SELECT 
     COUNT(DISTINCT emp_no) - (SELECT 
             COUNT(DISTINCT emp_no)
@@ -689,7 +833,49 @@ SELECT
             to_date > CURDATE())
 FROM
     employees;
+/* Calculating the length of the stay for each employee.
+This has the length in departments by default so employee who switched departments would have 2 or more rows
+But the length of stay will include the total time of stay in every row they have */
+SELECT DISTINCT
+    e.emp_no, (DATEDIFF(CURDATE(), hire_date))/365 AS 'Stay Length'
+FROM
+    employees AS e
+        JOIN
+    dept_emp AS de USING (emp_no)
+GROUP BY e.emp_no , (DATEDIFF(CURDATE(), hire_date))/365;
 
-SELECT DISTINCT e.emp_no, (DATEDIFF(MAX(to_date), hire_date)) AS 'Stay Length' FROM employees AS e JOIN dept_emp AS de USING (emp_no) GROUP BY e.emp_no,  (DATEDIFF(to_date, hire_date));
+-- List of hire_date
+SELECT DISTINCT emp_no, hire_date FROM employees WHERE hire_date LIKE '20%-%';
+
+--  Employees and their current state with the company
+SELECT DISTINCT emp_no, to_date FROM employees JOIN dept_emp USING (emp_no);
+
+-- Count of employees who are no longer with the compnay or at their first or second position
+-- (there seems to be very few employees with a second position in this query)
+SELECT
+    emp_no, to_date, COUNT(emp_no) AS 'Count'
+FROM
+    employees
+        JOIN
+    dept_emp USING (emp_no)
+WHERE
+    to_date NOT LIKE '9999%'
+GROUP BY emp_no , to_date
+HAVING COUNT(emp_no);
 
 SELECT 121938/365;
+
+-- Using (SUM((DATEDIFF(CURDATE(), hire_date))/365))/(300024) to find average stay
+SELECT DISTINCT
+    e.emp_no, SUM((DATEDIFF(CURDATE(), hire_date))/365) AS 'Stay Length'
+FROM
+    employees AS e
+        JOIN
+    dept_emp AS de USING (emp_no)
+GROUP BY e.emp_no , (DATEDIFF(CURDATE(), hire_date))/365 HAVING SUM(DISTINCT ((DATEDIFF(CURDATE(), hire_date))/365));
+-- SUM(DISTINCT ((DATEDIFF(CURDATE(), hire_date))/365)) AS 'Sum of stay'
+
+SELECT
+    (SUM((DATEDIFF(CURDATE(), hire_date))/365))/300024 AS 'Average Stay Length'
+FROM
+    employees;
