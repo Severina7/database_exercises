@@ -94,7 +94,9 @@ I have been doing something using the linux epoch 6tm.*/
 
 SELECT CONCAT (first_name, last_name) AS full_name, first_name, last_name FROM employees WHERE last_name LIKE 'E%e';
 SELECT CONCAT (UPPER(first_name), UPPER(last_name)) AS full_name, UPPER(first_name), UPPER(last_name) FROM employees WHERE last_name LIKE 'E%e';
+
 SELECT * , DATEDIFF(NOW(), hire_date)/365 AS tenure FROM employees WHERE birth_date LIKE '%12-24' AND hire_date LIKE '199%' ORDER BY tenure;
+
 SHOW tables FROM employees;
 SHOW columns FROM salaries;
 SELECT MAX(salary) as maxsalary, MIN(salary) AS minsalary, to_date FROM salaries;
@@ -659,3 +661,35 @@ SHOW tables FROM employees;
 SELECT * FROM employees;
 
 # , COUNT(emp_no) AS 'Count of emp recurrence' 
+
+USE employees;
+SELECT DISTINCT
+    emp_no, MAX(to_date)
+FROM
+    dept_emp
+GROUP BY emp_no , to_date;
+
+SELECT 
+    COUNT(DISTINCT emp_no)
+FROM
+    employees
+        JOIN
+    dept_emp AS de USING (emp_no)
+WHERE
+    to_date > CURDATE();
+
+SELECT 
+    COUNT(DISTINCT emp_no) - (SELECT 
+            COUNT(DISTINCT emp_no)
+        FROM
+            employees
+                JOIN
+            dept_emp AS de USING (emp_no)
+        WHERE
+            to_date > CURDATE())
+FROM
+    employees;
+
+SELECT DISTINCT e.emp_no, (DATEDIFF(MAX(to_date), hire_date)) AS 'Stay Length' FROM employees AS e JOIN dept_emp AS de USING (emp_no) GROUP BY e.emp_no,  (DATEDIFF(to_date, hire_date));
+
+SELECT 121938/365;
