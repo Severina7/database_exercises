@@ -874,7 +874,8 @@ FROM
     dept_emp AS de USING (emp_no)
 GROUP BY e.emp_no , (DATEDIFF(CURDATE(), hire_date))/365 HAVING SUM(DISTINCT ((DATEDIFF(CURDATE(), hire_date))/365));
 -- SUM(DISTINCT ((DATEDIFF(CURDATE(), hire_date))/365)) AS 'Sum of stay'
-
+--  This calculation does not take into account that the date the company stopped hiring herre is 2015
+-- and CURDATE() is 2022. On tableau the value is going to be different
 SELECT
     (SUM((DATEDIFF(CURDATE(), hire_date))/365))/300024 AS 'Average Stay Length'
 FROM
